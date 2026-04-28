@@ -4,7 +4,7 @@ import React from 'react';
 
 export default function LoginPage() {
   const handleLogin = () => {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://profile-intelligence-service-production.up.railway.app';
     window.location.href = `${apiUrl}/auth/github`;
   };
 
