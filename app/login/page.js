@@ -54,33 +54,10 @@ export default function LoginPage() {
               </svg>
               Continue with GitHub
             </a>
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', margin: '0.5rem 0' }}>
-              <div style={{ flex: 1, height: '1px', background: 'var(--border)' }} />
-              <span style={{ fontSize: '0.8rem', color: 'var(--muted-foreground)' }}>OR TEST AS</span>
-              <div style={{ flex: 1, height: '1px', background: 'var(--border)' }} />
-            </div>
-
-            <a 
-              href="/auth/callback?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwMTlkZGQwNS01MjQ3LTdlZWMtYmU2MS01ZDcxMzhiNDBhMGQiLCJyb2xlIjoiYW5hbHlzdCIsImlhdCI6MTc3NzUzMTAxNSwiZXhwIjoyNzc3NTM0NjE1fQ.xV5K9pM_gVNI7ovvlauUhpUWAaaVgvTgSATMFxer7iA&refresh_token=6e8f436c6e57a2d7f3331dca2606d960fcf00f718f641dbac560413cfed4744c687d48e558b0d0e1"
-              style={{
-                width: '100%',
-                padding: '0.75rem',
-                background: 'transparent',
-                color: 'var(--primary)',
-                border: '1px solid var(--primary)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '1rem',
-                fontWeight: '600',
-                borderRadius: '0.75rem',
-                textDecoration: 'none',
-                transition: 'all 0.2s ease'
-              }}
-            >
-              Login as Analyst (Demo)
-            </a>
+            
+            <p style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
+              Trouble logging in? <a href="https://profile-intelligence-service-production.up.railway.app/auth/github" style={{ color: '#38bdf8', textDecoration: 'underline' }}>Click here directly</a>
+            </p>
           </div>
         </div>
 
