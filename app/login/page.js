@@ -29,33 +29,41 @@ export default function LoginPage() {
           <p style={{ fontSize: '0.9rem', color: 'var(--muted-foreground)', marginBottom: '1.5rem' }}>
             Transforming profile data into queryable intelligence.
           </p>
-          <a 
-            href={`${process.env.NEXT_PUBLIC_API_URL || 'https://profile-intelligence-service-production.up.railway.app'}/auth/github`}
-            className="login-button"
-            style={{
-              width: '100%',
-              padding: '1rem',
-              background: 'var(--foreground)',
-              color: 'var(--background)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '0.75rem',
-              fontSize: '1.1rem',
-              fontWeight: '600',
-              borderRadius: 'var(--radius)',
-              textDecoration: 'none',
-              transition: 'all 0.2s ease'
-            }}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-            </svg>
-            Continue with GitHub
-          </a>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <a 
+              href="https://profile-intelligence-service-production.up.railway.app/auth/github"
+              style={{
+                width: '100%',
+                padding: '1rem',
+                background: '#f8fafc',
+                color: '#0f172a',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.75rem',
+                fontSize: '1.1rem',
+                fontWeight: '600',
+                borderRadius: '0.75rem',
+                textDecoration: 'none',
+                transition: 'all 0.2s ease',
+                boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)'
+              }}
+              onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
+              onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+              </svg>
+              Continue with GitHub
+            </a>
+            
+            <p style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
+              Trouble logging in? <a href="https://profile-intelligence-service-production.up.railway.app/auth/github" style={{ color: '#38bdf8', textDecoration: 'underline' }}>Click here directly</a>
+            </p>
+          </div>
         </div>
 
-        <div style={{ fontSize: '0.8rem', color: 'var(--muted-foreground)' }}>
+        <div style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
           By continuing, you agree to our terms of service and internal data policies.
         </div>
       </div>
