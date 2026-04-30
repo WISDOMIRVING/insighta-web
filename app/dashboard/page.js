@@ -1,28 +1,34 @@
 import React from 'react';
 import { fetchWithAuth } from '@/lib/api';
 import Navbar from '@/components/Navbar';
-import { Users, Search, Download, ShieldCheck, Activity, MapPin } from 'lucide-react';
+import { Users, Activity, ShieldCheck, MapPin } from 'lucide-react';
+import { redirect } from 'next/navigation';
 
 export default async function DashboardPage() {
-  // Fetch some summary data (in a real app, you'd have a specific stats endpoint)
   const profilesRes = await fetchWithAuth('/api/profiles?limit=5');
-  const userRes = { username: 'Admin User', role: 'admin' }; // Placeholder for now
+  const userRes = await fetchWithAuth('/api/users/me');
+
+  if (!userRes || userRes.status !== 'success') {
+    redirect('/login');
+  }
+
+  const user = userRes.data;
 
   const stats = [
     { name: 'Total Profiles', value: profilesRes?.total || 0, icon: Users, color: 'var(--primary)' },
     { name: 'System Status', value: 'Active', icon: Activity, color: '#10b981' },
-    { name: 'Role', value: 'Admin', icon: ShieldCheck, color: 'var(--accent)' },
+    { name: 'Your Role', value: user.role, icon: ShieldCheck, color: 'var(--accent)' },
     { name: 'Active Countries', value: '48', icon: MapPin, color: '#f59e0b' },
   ];
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <Navbar user={userRes} />
+      <Navbar user={user} />
       
       <main style={{ flex: 1, padding: '2rem', maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
         <header style={{ marginBottom: '2.5rem' }} className="animate-in">
           <h1 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>Dashboard Overview</h1>
-          <p style={{ color: 'var(--muted-foreground)' }}>Welcome back to Insighta Labs+ Intelligence System.</p>
+          <p style={{ color: 'var(--muted-foreground)' }}>Welcome back, @{user.username}. Here is your intelligence summary.</p>
         </header>
 
         <div style={{ 
@@ -51,7 +57,7 @@ export default async function DashboardPage() {
               </div>
               <div>
                 <p style={{ fontSize: '0.875rem', color: 'var(--muted-foreground)', marginBottom: '0.25rem' }}>{stat.name}</p>
-                <p style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{stat.value}</p>
+                <p style={{ fontSize: '1.5rem', fontWeight: 'bold', textTransform: 'capitalize' }}>{stat.value}</p>
               </div>
             </div>
           ))}
@@ -75,9 +81,11 @@ export default async function DashboardPage() {
                 </tr>
               </thead>
               <tbody>
-                {profilesRes?.data?.map((profile, i) => (
+                {profilesRes?.data?.map((profile) => (
                   <tr key={profile.id} style={{ borderBottom: '1px solid var(--border)', fontSize: '0.9rem' }}>
-                    <td style={{ padding: '1rem', fontWeight: '500' }}>{profile.name}</td>
+                    <td style={{ padding: '1rem', fontWeight: '500' }}>
+                      <a href={`/profiles/${profile.id}`} style={{ color: 'var(--primary)' }}>{profile.name}</a>
+                    </td>
                     <td style={{ padding: '1rem' }}>
                       <span style={{ 
                         padding: '0.25rem 0.6rem', 

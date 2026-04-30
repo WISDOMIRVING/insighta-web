@@ -1,15 +1,17 @@
 import React from 'react';
+import { fetchWithAuth } from '@/lib/api';
 import Navbar from '@/components/Navbar';
-import { User, Mail, Shield, Calendar, LogOut } from 'lucide-react';
+import { User, Mail, Shield, Calendar, LogOut, Activity } from 'lucide-react';
+import { redirect } from 'next/navigation';
 
-export default function AccountPage() {
-  const user = { 
-    username: 'wisdomirving', 
-    email: 'wisdom@insighta.labs', 
-    role: 'admin', 
-    created_at: '2026-04-21T12:00:00Z',
-    avatar_url: 'https://github.com/wisdomirving.png'
-  };
+export default async function AccountPage() {
+  const userRes = await fetchWithAuth('/api/users/me');
+  
+  if (!userRes || userRes.status !== 'success') {
+    redirect('/login');
+  }
+  
+  const user = userRes.data;
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -29,17 +31,21 @@ export default function AccountPage() {
               height: '100px',
               borderRadius: '50%',
               background: 'var(--secondary)',
-              backgroundImage: `url(${user.avatar_url})`,
+              backgroundImage: user.avatar_url ? `url(${user.avatar_url})` : 'none',
               backgroundSize: 'cover',
-              border: '4px solid var(--border)'
-            }} />
+              border: '4px solid var(--border)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              {!user.avatar_url && <User size={40} style={{ color: 'var(--muted-foreground)' }} />}
+            </div>
             <div style={{ flex: 1 }}>
-              <h2 style={{ fontSize: '1.5rem', marginBottom: '0.25rem' }}>{user.username}</h2>
+              <h2 style={{ fontSize: '1.5rem', marginBottom: '0.25rem' }}>@{user.username}</h2>
               <p style={{ color: 'var(--primary)', fontWeight: '600', textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '0.05em' }}>
                 {user.role} Access Level
               </p>
             </div>
-            <button style={{ background: 'var(--secondary)', fontSize: '0.875rem' }}>Edit Profile</button>
           </section>
 
           {/* Details */}
@@ -49,7 +55,7 @@ export default function AccountPage() {
                 <Mail size={20} style={{ color: 'var(--muted-foreground)' }} />
                 <div style={{ flex: 1 }}>
                   <p style={{ fontSize: '0.8rem', color: 'var(--muted-foreground)' }}>Email Address</p>
-                  <p style={{ fontWeight: '500' }}>{user.email}</p>
+                  <p style={{ fontWeight: '500' }}>{user.email || 'Not provided'}</p>
                 </div>
               </div>
               
@@ -62,18 +68,30 @@ export default function AccountPage() {
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+                <Activity size={20} style={{ color: 'var(--muted-foreground)' }} />
+                <div style={{ flex: 1 }}>
+                  <p style={{ fontSize: '0.8rem', color: 'var(--muted-foreground)' }}>Last Login</p>
+                  <p style={{ fontWeight: '500' }}>
+                    {user.last_login_at ? new Date(user.last_login_at).toLocaleString() : 'Never'}
+                  </p>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
                 <Calendar size={20} style={{ color: 'var(--muted-foreground)' }} />
                 <div style={{ flex: 1 }}>
-                  <p style={{ fontSize: '0.8rem', color: 'var(--muted-foreground)' }}>Joined Date</p>
-                  <p style={{ fontWeight: '500' }}>{new Date(user.created_at).toLocaleDateString(undefined, { dateStyle: 'long' })}</p>
+                  <p style={{ fontSize: '0.8rem', color: 'var(--muted-foreground)' }}>Member Since</p>
+                  <p style={{ fontWeight: '500' }}>
+                    {user.created_at ? new Date(user.created_at).toLocaleDateString(undefined, { dateStyle: 'long' }) : 'Unknown'}
+                  </p>
                 </div>
               </div>
             </div>
           </section>
 
-          {/* Danger Zone */}
+          {/* Sign Out */}
           <section style={{ marginTop: '2rem' }}>
-            <button style={{ 
+            <a href="/login" style={{ 
               width: '100%', 
               padding: '1rem', 
               background: '#ef444410', 
@@ -82,11 +100,14 @@ export default function AccountPage() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '0.75rem'
+              gap: '0.75rem',
+              borderRadius: 'var(--radius)',
+              textDecoration: 'none',
+              fontWeight: '500'
             }}>
               <LogOut size={20} />
               Sign Out from Device
-            </button>
+            </a>
           </section>
         </div>
       </main>
