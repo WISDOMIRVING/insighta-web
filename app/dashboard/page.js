@@ -25,16 +25,16 @@ export default async function DashboardPage() {
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Navbar user={user} />
       
-      <main style={{ flex: 1, padding: '2rem', maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
+      <main className="container" style={{ flex: 1, padding: '2rem 1rem', maxWidth: '1200px' }}>
         <header style={{ marginBottom: '2.5rem' }} className="animate-in">
-          <h1 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>Dashboard Overview</h1>
+          <h1 style={{ marginBottom: '0.5rem' }}>Dashboard Overview</h1>
           <p style={{ color: 'var(--muted-foreground)' }}>Welcome back, @{user.username}. Here is your intelligence summary.</p>
         </header>
 
         <div style={{ 
           display: 'grid', 
           gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', 
-          gap: '1.5rem',
+          gap: '1rem',
           marginBottom: '3rem'
         }}>
           {stats.map((stat, i) => (
@@ -64,13 +64,13 @@ export default async function DashboardPage() {
         </div>
 
         <section className="animate-in" style={{ animationDelay: '0.4s' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-            <h2 style={{ fontSize: '1.25rem' }}>Recently Enriched Profiles</h2>
-            <a href="/profiles" style={{ fontSize: '0.875rem', color: 'var(--primary)', fontWeight: '600' }}>View all</a>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', gap: '1rem' }}>
+            <h2 style={{ fontSize: '1.25rem' }}>Recent Profiles</h2>
+            <Link href="/profiles" style={{ fontSize: '0.875rem', color: 'var(--primary)', fontWeight: '600', whiteSpace: 'nowrap' }}>View all</Link>
           </div>
 
-          <div className="glass" style={{ borderRadius: '1rem', overflow: 'hidden' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+          <div className="glass" style={{ borderRadius: '1rem', overflowX: 'auto', padding: 0 }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '600px' }}>
               <thead>
                 <tr style={{ background: 'var(--secondary)', fontSize: '0.875rem', color: 'var(--muted-foreground)' }}>
                   <th style={{ padding: '1rem' }}>NAME</th>
@@ -84,7 +84,7 @@ export default async function DashboardPage() {
                 {profilesRes?.data?.map((profile) => (
                   <tr key={profile.id} style={{ borderBottom: '1px solid var(--border)', fontSize: '0.9rem' }}>
                     <td style={{ padding: '1rem', fontWeight: '500' }}>
-                      <a href={`/profiles/${profile.id}`} style={{ color: 'var(--primary)' }}>{profile.name}</a>
+                      <Link href={`/profiles/${profile.id}`} style={{ color: 'var(--primary)' }}>{profile.name}</Link>
                     </td>
                     <td style={{ padding: '1rem' }}>
                       <span style={{ 
@@ -98,11 +98,11 @@ export default async function DashboardPage() {
                         {profile.gender}
                       </span>
                     </td>
-                    <td style={{ padding: '1rem' }}>{profile.age} <span style={{ color: 'var(--muted-foreground)', fontSize: '0.8rem' }}>({profile.age_group})</span></td>
-                    <td style={{ padding: '1rem' }}>{profile.country_name} ({profile.country_id})</td>
+                    <td style={{ padding: '1rem' }}>{profile.age} <span className="desktop-only" style={{ color: 'var(--muted-foreground)', fontSize: '0.8rem' }}>({profile.age_group})</span></td>
+                    <td style={{ padding: '1rem' }}>{profile.country_name}</td>
                     <td style={{ padding: '1rem' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <div style={{ flex: 1, height: '4px', background: 'var(--secondary)', borderRadius: '2px', maxWidth: '60px' }}>
+                        <div style={{ flex: 1, height: '4px', background: 'var(--secondary)', borderRadius: '2px', maxWidth: '40px' }}>
                           <div style={{ 
                             height: '100%', 
                             width: `${profile.gender_probability * 100}%`, 

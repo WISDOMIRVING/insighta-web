@@ -15,14 +15,14 @@ export default function LoginPage() {
       <div className="glass animate-in" style={{
         maxWidth: '400px',
         width: '100%',
-        padding: '3rem',
+        padding: '2.5rem 1.5rem',
         borderRadius: '1.5rem',
         textAlign: 'center',
         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
       }}>
         <div style={{ marginBottom: '2rem' }}>
-          <h1 className="gradient-text" style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>Insighta Labs+</h1>
-          <p style={{ color: 'var(--muted-foreground)', fontSize: '1.1rem' }}>Secure Access & Intelligence Platform</p>
+          <h1 className="gradient-text" style={{ marginBottom: '0.5rem' }}>Insighta Labs+</h1>
+          <p style={{ color: 'var(--muted-foreground)', fontSize: '1rem' }}>Secure Access & Intelligence Platform</p>
         </div>
 
         <div style={{ marginBottom: '2.5rem' }}>
