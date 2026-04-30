@@ -3,6 +3,7 @@ import { fetchWithAuth } from '@/lib/api';
 import Navbar from '@/components/Navbar';
 import { Users, Activity, ShieldCheck, MapPin } from 'lucide-react';
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
 
 export default async function DashboardPage() {
   const profilesRes = await fetchWithAuth('/api/profiles?limit=5');
